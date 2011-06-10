@@ -1,0 +1,68 @@
+require 'nokogiri'
+
+# 
+module Bull
+  # 
+  class Report
+
+  attr_reader :server_id, :monit_version, :server_hostname, :server_uptime,
+    :os_name, :os_version, :server_arch, :server_cpus_number, :server_memory, :ip, :timestamp
+
+  def parse_xml(xml, ip, timestamp = Time.now.to_i)
+      content = Nokogiri::XML(xml)
+      @ip                 = ip
+      @timestamp          = timestamp
+      @server_id          = content.xpath("//server//id").collect(&:text).join
+      @monit_version      = content.xpath("//server//version").collect(&:text).join
+      @server_hostname    = content.xpath("//server//localhostname").collect(&:text).join
+      @server_uptime      = content.xpath("//server//uptime").collect(&:text).join.to_i
+      @os_name            = content.xpath("//platform//name").collect(&:text).join
+      @os_version         = content.xpath("//platform//release").collect(&:text).join
+      @server_arch        = content.xpath("//platform//machine").collect(&:text).join
+      @server_cpus_number = content.xpath("//platform//cpu").collect(&:text).join.to_i
+      @server_memory      = content.xpath("//platform//memory").collect(&:text).join.to_i
+    end
+
+    def parse_bson(bson)
+      @ip                 = bson["ip"]
+      @timestamp          = bson["timestamp"]
+      @server_id          = bson["server_id"]
+      @monit_version      = bson["monit_version"]
+      @server_hostname    = bson["server_hostname"]
+      @server_uptime      = bson["server_uptime"]
+      @os_name            = bson["os_name"]
+      @os_version         = bson["os_version"]
+      @server_arch        = bson["server_arch"]
+      @server_cpus_number = bson["server_cpus_number"]
+      @server_memory      = bson["server_memory"]
+    end
+
+    def to_json
+      json = {
+        'timestamp'          => @timestamp,
+        'ip'                 => @ip,
+        'server_id'          => @server_id,
+        'monit_version'      => @monit_version,
+        'server_hostname'    => @server_hostname,
+        'server_uptime'      => @server_uptime,
+        'os_name'            => @os_name,
+        'os_version'         => @os_version,
+        'server_arch'        => @server_arch,
+        'server_cpus_number' => @server_cpus_number,
+        'server_memory'      => @server_memory,
+      }
+      return json
+    end
+
+    def save(db)
+      verify_data
+      collection = db.collection("reports")
+      collection.insert(self.to_json)
+    end
+
+    def verify_data
+      #TODO
+    end
+
+  end
+end

@@ -1,0 +1,8 @@
+development:
+  static: true
+  dump_errors: true
+  show_exceptions: true
+production:
+  static: true
+  dump_errors: true
+  show_exceptions: false

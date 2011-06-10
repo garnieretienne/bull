@@ -1,0 +1,203 @@
+/* General */
+
+body {
+  color: #222; 
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+h2 {
+  color: #999;
+  font-size: 0.8em;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+h3 {
+  color: #999;
+  font-size: 1em;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ccc;
+}
+
+.resize {
+  width: 90%;
+  margin: auto;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+table {
+  font-size: 1em;
+}
+
+table .title {
+  width: 200px;
+  font-weight: bold;
+}
+
+tr {
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+.label {
+  color: #656565;
+  text-transform: uppercase;
+  padding-left: 10px;
+}
+
+.alert {
+  color: white;
+  background-color: #DA7B85;
+}
+
+.events {
+  display: inline-block;
+  text-align: center;
+  color: white;
+  background-color: #DA7B85;
+  text-transform: uppercase;
+  padding: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+/* Menu */
+#menu {
+  width: 90%;
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+}
+
+#menu a {
+  text-decoration: underline;
+}
+
+/* List all hosts */
+
+#hosts_list {
+  width: 90%;
+  margin: auto;
+  padding: 10px;
+}
+
+#hosts_list table {
+  margin: auto;
+}
+
+#hosts_list tr {
+  background-color: #F8F8F8;
+  margin-bottom: 5px;
+}
+
+.lost {
+  display: inline-block;
+  text-align: center;
+  color: white;
+  background-color: red;
+  text-transform: uppercase;
+  padding: 1px;
+  width: 100px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.monitored {
+  display: inline-block;
+  text-align: center;
+  color: white;
+  background-color: green;
+  text-transform: uppercase;
+  padding: 1px;
+  width: 100px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.comment {
+  color: grey;
+  text-transform: none;
+  font-style: italic;
+  margin-left: 10px;
+}
+
+/* Show host */
+
+.host {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  width: 90%;
+  margin: auto;
+  border: 1px solid #ccc;
+  background-color: #F8F8F8;
+}
+
+.host .host_header {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  background-color: #ccc;
+  padding: 5px;
+  text-align: right;
+  padding-right: 20px;
+}
+
+.host .host_infos {
+  padding: 20px;
+  padding-top: 10px;
+  width: 50%;
+}
+
+.host .alerts_infos {
+  padding: 20px;
+  padding-top: 10px;
+  width: 50%;
+  float: right;
+}
+
+.host .alerts_infos table {
+  width: 100%;
+}
+
+.host .alerts_infos td {
+  padding-left: 20px;
+}
+.host .host_header .hostname {
+  float: left;
+  margin-left: 15px;
+  font-weight: bold;
+}
+
+.host .system {
+  margin-left: 20px;
+}
+
+.host .filesystem {
+  margin-left: 20px;
+}
+
+.host .processes {
+  margin-left: 20px;
+}
+
+.host .processes .title {
+  width: 190px;
+}

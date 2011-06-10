@@ -1,0 +1,7 @@
+development:
+  collector_user:     
+  collector_password: 
+
+production:
+  collector_user:     monit
+  collector_password: rules

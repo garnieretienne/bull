@@ -1,0 +1,74 @@
+%h3.resize<
+  Report
+  %span.comment>=  Time.at(@report.timestamp)
+.host
+  .host_header
+    %span.hostname<
+      = @report.get(:system => ['name'])
+      - if (Time.now.to_i - @report.timestamp) < 300 then
+        = " "
+        %span.monitored> monitored
+        - if (!@report.events.empty?) then
+          %span.events>= " #{@report.events.count} events detected !"
+      - else
+        = " "
+        %span.lost> lost
+    %span.label> Load:
+    = " #{@report.get(:system =>['system','load','avg05'])}"
+    %span.label> CPU:
+    = " #{@report.get(:system => ['system','cpu','system'])}"
+    %span.label> Memory:
+    = " #{kb_to_s(@report.get(:system => ['system','memory','kilobyte']).to_i)}"
+    %span.label> Uptime:
+    - if (Time.now.to_i - @report.timestamp) < 300 then
+      = " #{time_to_s(@report.get(:data => ['monit','server','uptime']).to_i)}"
+    - else
+      = " N/A"
+  - if (!@report.events.empty?) then
+    .alerts_infos
+      %h2= "Alerts (#{@report.events.count})"
+      %table.alerts
+        - @report.events.each do |message|
+          %tr.alert
+            %td= message
+  .host_infos
+    %h2 System
+    %table.system
+      %tr
+        %td.title hostname
+        %td= @report.get(:data => ['monit','server','localhostname'])
+      %tr
+        %td.title os
+        %td= "#{@report.get(:data => ['monit','platform','name'])} #{@report.get(:data => ['monit','platform','release'])}"
+      %tr
+        %td.title cpu(s)
+        %td= @report.get(:data => ['monit','platform','cpu'])
+      %tr
+        %td.title arch
+        %td= @report.get(:data => ['monit','platform','machine'])
+      %tr
+        %td.title memory
+        %td= kb_to_s(@report.get(:data => ['monit','platform','memory']).to_i)
+    - if (@report.services(0)) then
+      %h2 Filesystem
+      %table.filesystem
+        - @report.services(0).each do |filesystem|
+          %tr{:class => ("alert" unless @report.get(filesystem => ['status']) == '0')}
+            %td.title= @report.get(filesystem => ['name'])
+            %td= "#{@report.get(filesystem => ['block', 'percent'])} %"
+    - if (@report.services(3)) then
+      %h2 Processes
+      %table.processes
+        - @report.services(3).each do |process|
+          %tr{:class => ("alert" unless @report.get(process => ['status']) == '0')}
+            %td.title= @report.get(process => ['name'])
+            %td<
+              %span.label> cpu:
+              = " #{@report.get(process => ['cpu', 'percent'])}%"
+              %span.label> memory:
+              = " #{@report.get(process => ['memory', 'percent'])}%"
+              %span.label> uptime:
+              = " #{time_to_s(@report.get(process => ['uptime']).to_i)}"
+
+#menu
+  %a{'href' =>'/hosts'} Back hosts listing

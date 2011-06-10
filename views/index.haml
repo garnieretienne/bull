@@ -1,0 +1,28 @@
+#hosts_list
+  %h3<
+    All hosts
+    %span.comment>= "(#{@reports.count})"
+  %table
+    - @reports.each do |report|
+      %tr
+        %td.title<
+          %a{'href' => "/host/#{report.get(:data => ['monit', 'server', 'id'])}/#{report.get(:data => ["monit","server","localhostname"])}"}= report.get(:system => ['name'])
+        %td<
+          %span.label OS: 
+          = " #{report.get(:data => ['monit','platform','name'])} #{report.get(:data => ['monit','platform','release'])}"
+          - if (Time.now.to_i - report.timestamp) < 300 then
+            %td<
+              %span.label Uptime:
+              = " #{time_to_s(report.get(:data => ['monit','server','uptime']).to_i)}"
+            %td<
+              %span.monitored> monitored
+              %span.comment= " last report sended on #{Time.at(report.timestamp).to_s}"
+          - else
+            %td<
+              %span.label Uptime: N/A
+            %td<
+              %span.lost> lost
+              %span.comment= " last report sended on #{Time.at(report.timestamp).to_s}"
+        - if (!report.events.empty?) then
+          %td<
+            %span.events= " #{report.events.count} events detected !"

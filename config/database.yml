@@ -1,0 +1,13 @@
+development:
+  mongo_server:   
+  mongo_port:     
+  mongo_database: bull_dev
+  mongo_user:     
+  mongo_password: 
+
+production:
+  mongo_server:
+  mongo_port:
+  mongo_database:
+  mongo_user:
+  mongo_password:
